@@ -1,18 +1,38 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpenDoor : MonoBehaviour
+public class OpenDoor : MonoBehaviour, IUsableObject
 {
-    // Start is called before the first frame update
-    void Start()
+    Animator porte;
+    public bool _click;
+    private void Start()
     {
+        porte = gameObject.GetComponent<Animator>();
+        _click = porte.GetBool("click");
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UseObject()
     {
-        
+        Open();
+    }
+
+    private void Open()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (_click == false)
+            {
+                porte.SetBool("click", true);
+                _click = true;
+            }
+            else
+            {
+                porte.SetBool("click", false);
+                _click = false;
+            }
+        }
     }
 }
